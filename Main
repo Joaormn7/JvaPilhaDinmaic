@@ -1,0 +1,154 @@
+import java.util.Scanner;
+
+public class MainPilhaDinamica {
+    public static void main(String[] args) {
+        PilhaDinamica pilha = new PilhaDinamica();
+        Scanner scanner = new Scanner(System.in);
+        int opcao = -1;
+
+        while (opcao != 0) {
+            System.out.println(" \n==== MENU PILHA DINÂMICA ====");
+            System.out.println("1 - Inserir elemento");
+            System.out.println("2 - Inserir sequência de elementos");
+            System.out.println("3 - Remover um elemento");
+            System.out.println("4 - Remover sequência de elementos");
+            System.out.println("5 - Remover todas as ocorrências de um elemento");
+            System.out.println("6 - Buscar elemento");
+            System.out.println("7 - Ordenar em ordem crescente");
+            System.out.println("8 - Ordenar em ordem decrescente");
+            System.out.println("9 - Editar um elemento");
+            System.out.println("10 - Exibir elementos da pilha");
+            System.out.println("11 - Limpar a pilha");
+            System.out.println("12 - Ver quantidade de elementos");
+            System.out.println("13 - Ver primeiro elemento");
+            System.out.println("14 - Ver último elemento");
+            System.out.println("0 - Sair do programa");
+            System.out.print("Escolha uma opção: ");
+            opcao = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcao) {
+                case 1:
+                    System.out.print("Digite o elemento: ");
+                    Object elemento = scanner.nextLine();
+                    pilha.inserirElemento(elemento);
+                    break;
+
+                case 2:
+                    System.out.print("Quantos elementos deseja inserir? ");
+                    int quantidade = scanner.nextInt();
+                    scanner.nextLine();
+                    Object[] sequencia = new Object[quantidade];
+                    for (int i = 0; i < quantidade; i++) {
+                        System.out.print("Elemento " + (i + 1) + ": ");
+                        sequencia[i] = scanner.nextLine();
+                    }
+                    pilha.inserirSequencia(sequencia);
+                    break;
+
+                case 3:
+                    System.out.print("Informe o elemento a ser removido: ");
+                    Object remover = scanner.nextLine();
+                    boolean foiRemovido = pilha.removerElemento(remover);
+                    if (foiRemovido) {
+                        System.out.println("Elemento removido com sucesso");
+                    } else {
+
+                        System.out.println("Elemento não encontrado na pilha");
+                    }
+                    break;
+
+                case 4:
+                    System.out.print("Quantos elementos deseja remover? ");
+                    int totalRemover = scanner.nextInt();
+                    scanner.nextLine();
+                    Object[] listaRemover = new Object[totalRemover];
+                    for (int i = 0; i < totalRemover; i++) {
+                        System.out.print("Elemento " + (i + 1) + ": ");
+                        listaRemover[i] = scanner.nextLine();
+                    }
+                    pilha.removerSequencia(listaRemover);
+                    break;
+
+                case 5:
+                    System.out.print("Elemento a remover completamente: ");
+                    Object alvo = scanner.nextLine();
+                    pilha.removerTodasOcorrencias(alvo);
+                    System.out.println("Todas as ocorrências foram removidas");
+                    break;
+
+                case 6:
+                    System.out.print("Elemento para buscar: ");
+                    Object buscar = scanner.nextLine();
+                    if (pilha.buscarElemento(buscar)) {
+                        System.out.println("Elemento encontrado.");
+                    } else {
+                        System.out.println("Elemento não está na pilha");
+                    }
+                    break;
+
+                case 7:
+                    pilha.ordenarCrescente();
+                    System.out.println("Pilha ordenada em ordem crescente");
+
+                    break;
+
+                case 8:
+                    pilha.ordenarDecrescente();
+                    System.out.println("Pilha ordenada em ordem decrescente");
+                    break;
+
+                case 9:
+                    System.out.print("Elemento atual: ");
+                    Object atual = scanner.nextLine();
+                    System.out.print("Novo valor: ");
+                    Object novo = scanner.nextLine();
+                    pilha.editarElemento(atual, novo);
+                    break;
+
+
+                case 10:
+                    pilha.exibir();
+                    break;
+
+                case 11:
+                    pilha.limpar();
+                    System.out.println("Pilha foi limpa");
+                    break;
+
+                case 12:
+                    System.out.println("Quantidade de elementos: " + pilha.quantidadeElementos());
+                    break;
+
+                case 13:
+                    No primeiro = pilha.obterPrimeiroElemento();
+                    if (primeiro != null) {
+                        System.out.println("Primeiro elemento: " + primeiro.getConteudo());
+                    } else {
+                        System.out.println("A pilha está vazia");
+                    }
+                    break;
+
+                case 14:
+                    No ultimo = pilha.obterUltimoElemento();
+                    if (ultimo != null) {
+                        System.out.println("Último elemento: " + ultimo.getConteudo());
+                    } else {
+
+                        System.out.println("A pilha está vazia");
+                    }
+                    break;
+
+                case 0:
+                    break;
+
+
+                default:
+                    System.out.println("opção inválida");
+                    break;
+            }
+        }
+
+        scanner.close();
+    }
+}
